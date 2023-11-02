@@ -43,32 +43,22 @@ bool ccnumIsValid(const std::vector<int> digits)
         return false;
 
     // 1. remove check digit from payload
-    std::cout << "checking " << vec2str(digits) << '\n';
     int orgCheckDigit = digits.back();
     std::vector<int> payload{ digits.begin(), digits.end() - 1 };
-    std::cout << "provided CD: " << orgCheckDigit << '\n';
-    std::cout << "payload " << vec2str(payload) << '\n';
 
     // 2. from right to left, double value of every second digit (including rightmost digit)
     for (auto rit = payload.rbegin(); rit != payload.rend(); rit += 2)
         *rit = *rit * 2;
-    std::cout << "multiplied payload " << vec2str(payload) << '\n';
 
     // 3. sum values of resulting digits
     int sum = 0;
-    std::cout << "sum of digits: ";
     for (auto val : payload)
-    {
-        int ds = digitSum(val);
-        sum += ds;
-        std::cout << ds << " + ";
-    }
-    std::cout << " = " << sum << '\n';
+        sum += digitSum(val);
 
     // 4. calculate check digit
     int checkDigit = 10 - (sum % 10);
-    std::cout << "new CD: " << checkDigit << '\n';
 
+    // 5. compare original with calculated check digit
     return checkDigit == orgCheckDigit;
 }
 
