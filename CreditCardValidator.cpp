@@ -22,6 +22,15 @@ std::string vec2str(const std::vector<T>& v)
     return ss.str();
 }
 
+// transform a numerical string into a vector of corresponding integers (e.g. "123" -> [1, 2, 3])
+std::vector<int> numStrToIntVec(const std::string& s)
+{
+    std::vector<int> v;
+    for (char c : s)
+        v.push_back(int(c) - int('0'));
+    return v;
+}
+
 // compute the sum of the digits of an integer value
 int digitSum(const int val)
 {
@@ -62,12 +71,11 @@ bool ccnumIsValid(const std::vector<int> digits)
     return checkDigit == orgCheckDigit;
 }
 
+
 int main()
 {
     std::string ccn = std::to_string(17893729974);
-    std::vector<int> digits;
-    for (char c : ccn)
-        digits.push_back(int(c) - int('0'));
+    std::vector<int> digits = numStrToIntVec(ccn);
 
     std::cout << "digits: " << vec2str(digits) << ", size: " << digits.size() << "\n";
     std::string validity = "invalid";
