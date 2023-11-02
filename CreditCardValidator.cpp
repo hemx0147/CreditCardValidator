@@ -50,14 +50,8 @@ bool ccnumIsValid(const std::vector<int> digits)
     std::cout << "payload " << vec2str(payload) << '\n';
 
     // 2. from right to left, double value of every second digit (including rightmost digit)
-    // TODO: better approach is perhaps to use std::transform
-    for (int pos = 0; pos < payload.size(); pos++)
-    {
-        int multiplicator = 1;
-        if (pos % 2 == 0)
-            multiplicator = 2;
-        payload[payload.size() - 1 - pos] = payload[payload.size() - 1 - pos] * multiplicator;
-    }
+    for (auto rit = payload.rbegin(); rit != payload.rend(); rit += 2)
+        *rit = *rit * 2;
     std::cout << "multiplied payload " << vec2str(payload) << '\n';
 
     // 3. sum values of resulting digits
@@ -72,7 +66,7 @@ bool ccnumIsValid(const std::vector<int> digits)
     std::cout << " = " << sum << '\n';
 
     // 4. calculate check digit
-    int checkDigit = (10 - (sum % 10)) % 10;
+    int checkDigit = 10 - (sum % 10);
     std::cout << "new CD: " << checkDigit << '\n';
 
     return checkDigit == orgCheckDigit;
@@ -80,16 +74,14 @@ bool ccnumIsValid(const std::vector<int> digits)
 
 int main()
 {
-
     std::string ccn = std::to_string(17893729974);
     std::vector<int> digits;
     for (char c : ccn)
         digits.push_back(int(c) - int('0'));
 
-
     std::cout << "digits: " << vec2str(digits) << ", size: " << digits.size() << "\n";
-    //std::string validity = "invalid";
-    //if (ccnumIsValid(digits))
-    //    validity = "valid";
-    //std::cout << "CCNum is " << validity << '\n';
+    std::string validity = "invalid";
+    if (ccnumIsValid(digits))
+        validity = "valid";
+    std::cout << "CCNum is " << validity << '\n';
 }
