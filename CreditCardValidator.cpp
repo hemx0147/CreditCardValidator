@@ -1,14 +1,12 @@
-// CreditCardValidator.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <iterator>
 
-template<typename T>
-std::string vec2str(const std::vector<T>& v)
+
+// String representation of a vector
+template<typename T> std::string vec2str(const std::vector<T>& v)
 {
     std::stringstream ss;
     ss << '[';
@@ -90,7 +88,7 @@ bool ccnumIsValid(const std::vector<int> digits)
 
 int main()
 {
-    std::string ccn = std::to_string(17893729974);
+    std::string ccn {"17893729974"};
     std::vector<int> digits = numStrToIntVec(ccn);
 
     std::cout << "digits: " << vec2str(digits) << ", size: " << digits.size() << "\n";
