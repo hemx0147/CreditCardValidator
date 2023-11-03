@@ -22,18 +22,34 @@ std::string vec2str(const std::vector<T>& v)
     return ss.str();
 }
 
-// transform a numerical string into a vector of corresponding integers (e.g. "123" -> [1, 2, 3])
+/**
+ * @brief Transform a numerical string into a vector of corresponding integers (e.g. "123" -> [1, 2, 3]).
+ * @param s                 The input string consisting of digit-characters only.
+ * @throw invalid_argument  If the input string contains non-digit characters.
+ * @return                  A vector containing individual integer digits of the input string.
+*/
 std::vector<int> numStrToIntVec(const std::string& s)
 {
     std::vector<int> v;
     for (char c : s)
+    {
+        if (c < '0' || c > '9')
+            throw std::invalid_argument("Input string contains non-numerical characters.");
         v.push_back(int(c) - int('0'));
+    }
     return v;
 }
 
-// compute the sum of the digits of an integer value
+/**
+ * @brief Compute the sum of the digits of a positive integer value.
+ * @param val               The value to compute the digit sum of.
+ * @throw invalid_argument  If the input value is negative.
+ * @return                  The digit sum of the input value.
+*/
 int digitSum(const int val)
 {
+    if (val < 0)
+        throw std::invalid_argument("Digit sum is only defined for non-negative integers.");
     int sum = 0;
     int currentVal = val;
     do { sum += currentVal % 10; } while ((currentVal /= 10) > 0);
