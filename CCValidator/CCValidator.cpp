@@ -1,50 +1,24 @@
 #include "CCValidator.h"
-#include <iterator>
 
 
-std::vector<int> ccval::numStrToIntVec(const std::string& s)
+bool ccval::cardNumIsValid(const std::string& cardNumber)
 {
-    std::vector<int> v;
-    for (char c : s)
-    {
-        if (c < '0' || c > '9')
-            throw std::invalid_argument("Input string contains non-numerical characters.");
-        v.push_back(int(c) - int('0'));
-    }
-    return v;
-}
-
-int ccval::digitSum(const int val)
-{
-    if (val < 0)
-        throw std::invalid_argument("Digit sum is only defined for non-negative integers.");
-    int sum = 0;
-    int currentVal = val;
-    do { sum += currentVal % 10; } while ((currentVal /= 10) > 0);
-    return sum;
-}
-
-bool ccval::ccnumIsValid(const std::vector<int> digits)
-{
-    if (digits.empty())
+    if (cardNumber.empty() || cardNumber.size() < 2)
         return false;
 
-    // 1. remove check digit from payload
-    int orgCheckDigit = digits.back();
-    std::vector<int> payload{ digits.begin(), digits.end() - 1 };
-
-    // 2. from right to left, double value of every second digit (including rightmost digit)
-    for (auto rit = payload.rbegin(); rit != payload.rend(); rit += 2)
-        *rit = *rit * 2;
-
-    // 3. sum values of resulting digits
+    int digit;
     int sum = 0;
-    for (auto val : payload)
-        sum += digitSum(val);
-
-    // 4. calculate check digit
-    int checkDigit = 10 - (sum % 10);
-
-    // 5. compare original with calculated check digit
-    return checkDigit == orgCheckDigit;
+    int parity = cardNumber.size() % 2;
+    for (int i = 0; i < cardNumber.size(); i++)
+    {
+        digit = int(cardNumber[i]) - int('0');
+        if (i % 2 == parity)
+        {
+            digit = 2 * digit;
+            if (digit > 9)
+                digit = digit - 9;
+        }
+        sum += digit;
+    }
+    return 0 == sum % 10;
 }

@@ -5,12 +5,9 @@
 int main()
 {
     std::cout << "Hello World" << std::endl;
-    std::string ccn {"17893729974"};
-    std::vector<int> digits = ccval::numStrToIntVec(ccn);
+    std::string cardNum {"17893729974"};
 
-    std::cout << "digits: " << ccval::vec2str(digits) << ", size: " << digits.size() << "\n";
-    std::string validity = "invalid";
-    if (ccval::ccnumIsValid(digits))
-        validity = "valid";
-    std::cout << "CCNum is " << validity << '\n';
+    std::cout << "cardNum: " << cardNum << ", size: " << cardNum.length() << "\n";
+    bool v1 = ccval::cardNumIsValid(cardNum);
+    std::cout << "CCNum is " << (v1 ? "valid" : "invalid") << '\n';
 }
