@@ -1,13 +1,20 @@
 #include <iostream>
 #include "CCValidator.h"
+#include "ConsoleUi.h"
 
 
 int main()
 {
-    std::cout << "Hello World" << std::endl;
-    std::string cardNum {"17893729974"};
+    ConsoleUi ui;
+    ui.drawBanner();
 
-    std::cout << "cardNum: " << cardNum << ", size: " << cardNum.length() << "\n";
-    bool v1 = ccval::cardNumIsValid(cardNum);
-    std::cout << "CCNum is " << (v1 ? "valid" : "invalid") << '\n';
+    std::string cardNum;
+    bool isValid = false;
+    while (true)
+    {
+        cardNum = ui.getUserInput("Enter credit card number: ");
+        isValid = ccval::cardNumIsValid(cardNum);
+        std::cout << "Card number is " << (isValid ? "valid" : "invalid") << '.' << std::endl;
+    }
+
 }
