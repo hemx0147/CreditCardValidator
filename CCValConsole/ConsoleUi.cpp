@@ -22,13 +22,13 @@ void ConsoleUi::drawBanner()
         }
     );
 
-    const int width = 2 * padLen + (*maxIt).size();
+    const size_t width = 2 * padLen + (*maxIt).size();
 
     // compute padding for each text line individually - each line should have same length after padding
     std::vector<std::string> paddedLines(bannerLines.size());
     std::transform(bannerLines.begin(), bannerLines.end(), paddedLines.begin(),
         [width](std::string& s) {
-            int linePadLen = (width - s.length()) / 2;
+            const size_t linePadLen = (width - s.length()) / 2;
             std::string pad(linePadLen, ' ');
             std::string line = pad + s + pad;
             if (line.size() < width)
