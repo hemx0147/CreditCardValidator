@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="CCValGui">
+    <file>rsc/unchecked.png</file>
+    <file>rsc/checked.png</file>
+  </qresource>
+</RCC>
