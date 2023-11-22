@@ -5,7 +5,7 @@
 
 bool ccval::cardNumIsValid(const std::string& cardNumber)
 {
-    if (cardNumber.empty() || cardNumber.size() < 2)
+    if (cardNumber.size() < PCN_MIN_DIGITS || cardNumber.size() > PCN_MAX_DIGITS)
         return false;
 
     int digit;
