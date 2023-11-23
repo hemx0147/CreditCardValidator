@@ -19,6 +19,7 @@ private:
     QPixmap validIcon = QPixmap("rsc/checked.png", "PNG");
     QPixmap invalidIcon = QPixmap("rsc/unchecked.png", "PNG");
     QLabel errorLabel;
+    const QString appTitle{ "Credit Card Validator" };
 
 
 public slots:

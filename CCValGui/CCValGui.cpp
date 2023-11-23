@@ -9,6 +9,8 @@ CCValGui::CCValGui(QWidget *parent)
 {
     ui.setupUi(this);
 
+    setWindowTitle(appTitle);
+
     resetState();
 
     connect(ui.checkButton, &QAbstractButton::clicked, this, &CCValGui::checkCardNumValidity);
@@ -64,7 +66,7 @@ void CCValGui::checkCardNumValidity()
     {
         QString minDigits = QString::number(ccval::PCN_MIN_DIGITS);
         QString maxDigits = QString::number(ccval::PCN_MAX_DIGITS);
-        QString msg = QString("Credit Card Number must be between %1 and %2 digits long.").arg(minDigits, maxDigits);
+        QString msg = QString("Credit Card Number must be %1-%2 digits long.").arg(minDigits, maxDigits);
         addErrorMessage(msg);
         return;
     }
